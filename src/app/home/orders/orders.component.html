@@ -1,0 +1,56 @@
+<div id="orders-section">
+  <p style="font-size: 1.5rem">Your Orders
+    <span style="font-size: 0.9rem;display: block;color: slategray;margin-top: 10px">List of all your orders are displayed in the below table</span>
+  </p>
+  <div class="table-section">
+    <div class="table-responsive">
+
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+        <button class="btn" type="button"
+                style="width: 10rem;border-radius: 20px;background-color: royalblue;color: white">
+          <i class="fas fa-plus-circle"></i> Add Orders
+        </button>
+      </div>
+
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Order Amount</th>
+          <th scope="col">Order Type</th>
+          <th scope="col">Order POC</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let i of Orders">
+          <th scope="row">{{i.orderId}}</th>
+          <td>{{i.productName}}</td>
+          <td>{{i.orderCharge}}</td>
+          <td>{{i.orderType}}</td>
+          <td>{{i.orderPoc}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  #orders-section {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+
+  .table-section {
+    width: 80%;
+    background-color: white;
+    padding: 2% 2%;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+    border-radius: 5px;
+  }
+
+  td, th {
+    font-size: small;
+  }
+</style>

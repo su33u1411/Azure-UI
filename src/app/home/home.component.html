@@ -1,0 +1,120 @@
+<div id="home-section">
+  <div id="home-menu-section">
+    <p id="brand-title">Azure</p>
+    <div style="height: 1px;background-color: whitesmoke; margin: 0 10px;opacity: 0.5"></div>
+    <div class="nav-menu-item-group" routerLink="/home/products">
+      <i class="fas fa-store nav-menu-item-img"></i>
+      <p class="nav-menu-item">Products</p>
+    </div>
+    <div style="height: 1px;background-color: whitesmoke; margin: 0 10px;opacity: 0.5"></div>
+    <div class="nav-menu-item-group" routerLink="/home/orders">
+      <i class="fas fa-file-invoice nav-menu-item-img"></i>
+      <p class="nav-menu-item">Orders</p>
+    </div>
+    <div style="height: 1px;background-color: whitesmoke; margin: 0 10px;opacity: 0.5"></div>
+    <div class="nav-menu-item-group" routerLink="/home/summary">
+      <i class="fas fa-receipt nav-menu-item-img"></i>
+      <p class="nav-menu-item">Summary</p>
+    </div>
+    <div id="menu-bottom-section" style="margin-left: 1%;font-weight: 500;color: whitesmoke;font-size: 0.7rem;bottom: 0;position: absolute;left: 0">
+      <p><i class="fas fa-copyright"></i> SKADI
+      <span style="display: block;font-size: 0.5rem">Version: 1.0.0</span>
+      </p>
+    </div>
+  </div>
+  <div id="home-details-section">
+    <div id="home-header">
+      <div class="dropdown" style="float: right;display: flex;margin-right: 2rem">
+        <p style="margin-right: 10px;margin-top:7%;top: 100%;transform: translateY(100%);color: slategray;font-size: 0.9em">
+          {{this.username}}</p>
+        <img src="./assets/undraw_profile.svg"
+             style="width: 40px;height: 40px;object-fit: contain;cursor: pointer;top: 40%;transform: translateY(40%)"
+             class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+             aria-expanded="false">
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" routerLink="/login">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 20px;margin-bottom:20px;margin-left: 20px;font-size: 2rem">Dashboard</div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<style>
+  #home-section {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+  }
+  #brand-title{
+    margin-top: 10%;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  #home-menu-section {
+    flex: 1;
+    background-color: royalblue;
+    color: white;
+  }
+
+  #home-details-section {
+    flex: 5.2;
+    background-color: whitesmoke;
+  }
+
+  .nav-menu-item-group {
+    cursor: pointer;
+    height: 5rem;
+    display: flex;
+    padding-top: 1.5rem;
+    justify-content: center;
+    vertical-align: center;
+    background-color: royalblue;
+  }
+
+  .nav-menu-item {
+    font-weight: 300;
+    color: whitesmoke;
+    font-size: 1.2rem;
+    flex: 2;
+  }
+
+  .nav-menu-item-img {
+    flex: 1;
+    font-size: 1.5rem;
+  }
+
+  #home-header {
+    height: 70px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .nav-menu-item {
+      font-size: 0.9rem;
+    }
+
+    .nav-menu-item-img {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media screen and (max-width: 670px) {
+    .nav-menu-item {
+      display: none;
+    }
+
+    .nav-menu-item-img {
+      font-size: 1.3rem;
+    }
+
+    #brand-title{
+      margin: 20px 0;
+      font-size: 1.5rem;
+    }
+  }
+
+</style>

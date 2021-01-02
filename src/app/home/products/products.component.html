@@ -1,0 +1,48 @@
+<div id="products-section">
+  <p style="font-size: 1.5rem">Your Orders
+    <span style="font-size: 0.9rem;display: block;color: slategray;margin-top: 10px">List of all your orders are displayed in the below table</span>
+  </p>
+  <div class="table-section">
+    <div class="table-responsive">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+        <button class="btn" type="button"
+                style="width: 10rem;border-radius: 20px;background-color: royalblue;color: white">
+          <i class="fas fa-plus-circle"></i> Add Product
+        </button>
+      </div>
+      <table class="table table-striped table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+        <tr>
+          <th scope="col">Product ID</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Product Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of Products">
+          <th scope="row">{{product.productId}}</th>
+          <td>{{product.productName}}</td>
+          <td>{{product.productDesc}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  #products-section {
+    margin-left: 20px;
+  }
+  .table-section {
+    background-color: white;
+    padding: 1%;
+    border-radius: 5px;
+    margin-right: 10%;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+  }
+
+  td, th {
+    font-size: small;
+  }
+</style>

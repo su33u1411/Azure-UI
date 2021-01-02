@@ -1,0 +1,57 @@
+<div id="login-container">
+  <div id="login-section">
+    <div id="login-non-form-section">
+      <img src="assets/personsittingondesk.jpg" id="promo-image">
+    </div>
+    <div id="login-form-section" *ngIf="!forgotPassword">
+      <div id="form-elements-group">
+        <div class="mb-3">
+          <img src="../../assets/LoginPerson.png" id="header-image">
+        </div>
+        <div class="mb-3">
+          <h5 class="text-center">Welcome Back!</h5>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isLoginError">
+          <strong>Invalid username or password!</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Please type your username" [(ngModel)]="this.username">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Please type your password" [(ngModel)]="this.password">
+        </div>
+        <div class="d-grid gap-2 mb-2">
+          <button type="button" class="btn btn-primary" (click)="validateUser()">Login</button>
+        </div>
+        <div class="d-grid gap-2 mb-2">
+          <button type="button" class="btn btn-light" (click)="toggleForgotPassword()">Forgot Password?
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="forgot-password-section" *ngIf="forgotPassword">
+      <div id="forgot-password-elements-group">
+        <div class="mt-3 mb-4">
+          <h5 class="text-center mb-3">Forgot Your Password?</h5>
+          <p style="font-size: 14px;font-weight: 400;color: gray;text-align: center">We get it, stuff happens. Just
+            enter your email address below
+            and we'll send you a link to reset your password!</p>
+        </div>
+        <div class="mb-2">
+          <label for="emailID" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="emailID" placeholder="Please type your email">
+        </div>
+        <div class="d-grid gap-2 mb-2">
+          <button type="button" class="btn btn-primary">Reset Password</button>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-light" (click)="toggleForgotPassword()">Return to Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
