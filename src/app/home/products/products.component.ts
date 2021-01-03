@@ -12,6 +12,7 @@ export class ProductsComponent implements OnInit {
   displayedColumns: string[] = ['#', 'productName', 'productDesc'];
   Products = new MatTableDataSource<Product>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  showTable = true;
 
   constructor(private appService: AppService) {
   }
@@ -26,5 +27,13 @@ export class ProductsComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.Products.filter = filterValue.trim().toLowerCase();
+  }
+
+  toggleShowTable() {
+    if (this.showTable) {
+      this.showTable = false;
+    } else {
+      this.showTable = true;
+    }
   }
 }

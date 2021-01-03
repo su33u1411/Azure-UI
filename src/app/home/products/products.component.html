@@ -8,28 +8,61 @@
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
-      <button mat-raised-button color="primary" style="float: right"><i class="fas fa-plus-circle"></i> Add Product</button>
-      <mat-table [dataSource]="this.Products" class="mat-elevation-z8">
+      <button mat-raised-button color="primary" style="float: right" data-bs-toggle="modal" data-bs-target="#addProductModel"><i class="fas fa-plus-circle"></i> Add Product</button>
 
+      <!--TABLE-->
+      <mat-table [dataSource]="this.Products" class="mat-elevation-z8">
         <ng-container matColumnDef="#">
           <mat-header-cell *matHeaderCellDef > No. </mat-header-cell>
           <mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="productName">
           <mat-header-cell *matHeaderCellDef > Product Name </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.productName}} </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="productDesc">
           <mat-header-cell *matHeaderCellDef > Product Description </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.productDesc}} </mat-cell>
         </ng-container>
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
       <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+
+      <!-- Modal -->
+      <div class="modal fade" id="addProductModel" tabindex="-1" aria-labelledby="addProductModel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLabel">Add Product</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="display: flex;flex-direction: column">
+              <mat-form-field style="width: 50%">
+                <mat-label>Favorite food</mat-label>
+                <input matInput placeholder="Ex. Pizza">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Favorite food</mat-label>
+                <input matInput placeholder="Ex. Pizza">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Favorite food</mat-label>
+                <input matInput placeholder="Ex. Pizza">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Favorite food</mat-label>
+                <input matInput placeholder="Ex. Pizza">
+              </mat-form-field>
+            </div>
+            <div class="modal-footer">
+              <button type="button" mat-raised-button color="link" data-bs-dismiss="modal">Close</button>
+              <button type="button" mat-raised-button color="primary" style="margin-left: 10px">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
