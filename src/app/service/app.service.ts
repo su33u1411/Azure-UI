@@ -37,16 +37,16 @@ export class AppService {
     });
   }
 
-  public getProducts(): Observable<[Product]> {
-    return this.http.get<[Product]>(environment.DOMAIN + Constants.PRODUCTS_ENDPOINT, {
+  public getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.DOMAIN + Constants.PRODUCTS_ENDPOINT, {
       headers: {
         Authorization: 'Bearer ' + this.getToken(),
       }
     });
   }
 
-  public getOrders(): Observable<[Order]> {
-    return this.http.get<[Order]>(environment.DOMAIN + Constants.ORDERS_ENDPOINT, {
+  public getOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(environment.DOMAIN + Constants.ORDERS_ENDPOINT, {
       headers: {
         Authorization: 'Bearer ' + this.getToken(),
       }

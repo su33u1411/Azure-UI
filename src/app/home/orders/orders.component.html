@@ -3,35 +3,47 @@
     <span style="font-size: 0.9rem;display: block;color: slategray;margin-top: 10px">List of all your orders are displayed in the below table</span>
   </p>
   <div class="table-section">
-    <div class="table-responsive">
+    <div class="table-responsive" >
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+      <button mat-raised-button color="primary" style="float: right">
+        <i class="fas fa-plus-circle"></i> Add Orders</button>
+      <mat-table [dataSource]="this.Orders" class="mat-elevation-z8">
 
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-        <button class="btn" type="button"
-                style="width: 10rem;border-radius: 20px;background-color: royalblue;color: white">
-          <i class="fas fa-plus-circle"></i> Add Orders
-        </button>
-      </div>
+        <ng-container matColumnDef="orderId">
+          <mat-header-cell *matHeaderCellDef >Order ID</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.orderId}} </mat-cell>
+        </ng-container>
 
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th scope="col">Order ID</th>
-          <th scope="col">Product Name</th>
-          <th scope="col">Order Amount</th>
-          <th scope="col">Order Type</th>
-          <th scope="col">Order POC</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let i of Orders">
-          <th scope="row">{{i.orderId}}</th>
-          <td>{{i.productName}}</td>
-          <td>{{i.orderCharge}}</td>
-          <td>{{i.orderType}}</td>
-          <td>{{i.orderPoc}}</td>
-        </tr>
-        </tbody>
-      </table>
+        <ng-container matColumnDef="productName">
+          <mat-header-cell *matHeaderCellDef > Product Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.productName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="orderCharge">
+          <mat-header-cell *matHeaderCellDef > Charge </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.orderCharge}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="orderType">
+          <mat-header-cell *matHeaderCellDef > Type </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.orderType}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="orderPoc">
+          <mat-header-cell *matHeaderCellDef > POC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.orderPoc}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+
+
+
     </div>
   </div>
 </div>

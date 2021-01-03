@@ -14,8 +14,11 @@ import {AuthenticationHandler} from './util/authentication.handler';
 import {AppService} from './service/app.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AppServiceInterceptor} from './util/app.service.interceptor';
-import {DataTablesModule} from 'angular-datatables';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -27,15 +30,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     OrdersComponent,
     SummaryComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientModule,
-        DataTablesModule,
-        NgbModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   providers: [AuthenticationHandler, AppService, AppServiceInterceptor],
   bootstrap: [AppComponent]
 })

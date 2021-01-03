@@ -1,32 +1,30 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AppService, Product} from '../../service/app.service';
-import {Subject} from 'rxjs';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit, OnDestroy {
-  Products: Product[];
-  dtOptions: DataTables.Settings = {
-    pageLength: 5,
-    lengthChange: false
-  };
-  dtTrigger: Subject<any> = new Subject<any>();
+export class ProductsComponent implements OnInit {
+  displayedColumns: string[] = ['#', 'productName', 'productDesc'];
+  Products = new MatTableDataSource<Product>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit(): void {
     this.appService.getProducts().subscribe(products => {
-      this.Products = products;
-      // Calling the DT trigger to manually render the table
-      this.dtTrigger.next();
+      this.Products = new MatTableDataSource<Product>(products);
+      this.Products.paginator = this.paginator;
     });
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.Products.filter = filterValue.trim().toLowerCase();
   }
 }
