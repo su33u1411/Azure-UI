@@ -1,7 +1,7 @@
 <div id="home-section">
   <div id="home-menu-section">
     <p id="brand-title">Azure</p>
-    <div style="height: 1px;background-color: whitesmoke; margin: 0 10px;opacity: 0.5"></div>
+    <div style="height: 1px;background-color: whitesmoke; margin: 0 5%;opacity: 0.5"></div>
     <div class="nav-menu-item-group" routerLink="/home/products">
       <i class="fas fa-store nav-menu-item-img"></i>
       <p class="nav-menu-item">Products</p>
@@ -16,6 +16,11 @@
       <i class="fas fa-receipt nav-menu-item-img"></i>
       <p class="nav-menu-item">Summary</p>
     </div>
+    <div style="height: 1px;background-color: whitesmoke; margin: 0 10px;opacity: 0.5"></div>
+    <div class="nav-menu-item-group" routerLink="/login">
+      <i class="fas fa-sign-out-alt nav-menu-item-img"></i>
+      <p class="nav-menu-item">Logout</p>
+    </div>
     <div id="menu-bottom-section" style="margin-left: 1%;font-weight: 500;color: whitesmoke;font-size: 0.7rem;bottom: 0;position: absolute;left: 0">
       <p><i class="fas fa-copyright"></i> SKADI
       <span style="display: block;font-size: 0.5rem">Version: 1.0.0</span>
@@ -26,17 +31,17 @@
     <div id="home-header">
       <div class="dropdown" style="float: right;display: flex;margin-right: 2rem">
         <p style="margin-right: 10px;margin-top:7%;top: 100%;transform: translateY(100%);color: slategray;font-size: 0.9em">
-          {{this.username}}</p>
+          Welcome,
+          {{this.username.charAt(0).toUpperCase() + this.username.slice(1)}}</p>
         <img src="./assets/undraw_profile.svg"
              style="width: 40px;height: 40px;object-fit: contain;cursor: pointer;top: 40%;transform: translateY(40%)"
              class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
              aria-expanded="false">
-        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <li><a class="dropdown-item" routerLink="/login">Logout</a></li>
-        </ul>
+<!--        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">-->
+<!--          <li><a class="dropdown-item" routerLink="/login">Logout</a></li>-->
+<!--        </ul>-->
       </div>
     </div>
-    <div style="margin-top: 20px;margin-bottom:20px;margin-left: 20px;font-size: 2rem">Dashboard</div>
     <router-outlet></router-outlet>
   </div>
 </div>
@@ -47,7 +52,7 @@
     display: flex;
   }
   #brand-title{
-    margin-top: 10%;
+    margin: 12% 0%;
     font-size: 2rem;
     text-align: center;
   }

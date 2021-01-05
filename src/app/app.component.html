@@ -1,4 +1,4 @@
-<div id="spinner-section" *ngIf="this.appService.isSpinnerEnable">
+<div id="spinner-section" *ngIf="this.isSpinnerEnable | async">
   <div id="spinner-element"></div>
 </div>
 <router-outlet></router-outlet>

@@ -1,1 +1,18 @@
-<p>summary works!</p>
+<div style="margin-left: 2%;background-color: white;width: 30%;padding: 2%;margin-top: 5%">
+  <p style="font-size: large"><span style="font-weight: 500">Net Amount : </span>{{this.netAmount}}</p>
+  <div style="display: flex;flex-direction: column;margin-top: 5%">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a from date</mat-label>
+      <input matInput [matDatepicker]="fromDatePicker" disabled (dateChange)="setFromDate($event.target.value)">
+      <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromDatePicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a to date</mat-label>
+      <input matInput [matDatepicker]="toDatePicker" disabled (dateChange)="setToDate($event.target.value)">
+      <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #toDatePicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="calculateAmount()" [disabled]="this.isCalculateButtonDisabled">Calculate Amount</button>
+  </div>
+</div>

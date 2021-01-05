@@ -3,12 +3,14 @@
     <span style="font-size: 0.9rem;display: block;color: slategray;margin-top: 10px">List of all your orders are displayed in the below table</span>
   </p>
   <div class="table-section">
-    <div class="table-responsive" >
+    <div class="table-responsive">
       <mat-form-field>
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
-      <button mat-raised-button color="primary" style="float: right">
+      <button mat-raised-button color="primary" style="float: right"
+              data-bs-toggle="modal"
+              data-bs-target="#addOrderModel">
         <i class="fas fa-plus-circle"></i> Add Orders</button>
       <mat-table [dataSource]="this.Orders" class="mat-elevation-z8">
 
@@ -42,6 +44,50 @@
       </mat-table>
       <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
 
+      <!-- Modal -->
+      <div class="modal fade" id="addOrderModel" tabindex="-1" aria-labelledby="addProductModel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLabel">Add Product</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="display: flex;flex-direction: column">
+              <mat-form-field style="width: 50%">
+                <mat-label>Product Name</mat-label>
+                <input matInput [(ngModel)]="this.order.productName" (ngModelChange)="this.enableSaveOrder()">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Type</mat-label>
+                <input matInput [(ngModel)]="this.order.orderType" (ngModelChange)="this.enableSaveOrder()">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Charge Amount</mat-label>
+                <input matInput [(ngModel)]="this.order.orderCharge" (ngModelChange)="this.enableSaveOrder()" type="number">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Quantity</mat-label>
+                <input matInput [(ngModel)]="this.order.orderQuantity" (ngModelChange)="this.enableSaveOrder()" type="number">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Units</mat-label>
+                <input matInput [(ngModel)]="this.order.quantityUnit" (ngModelChange)="this.enableSaveOrder()">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Point of Contact</mat-label>
+                <input matInput [(ngModel)]="this.order.orderPoc" (ngModelChange)="this.enableSaveOrder()">
+              </mat-form-field>
+            </div>
+            <div class="modal-footer">
+              <button #closeButton type="button" mat-raised-button color="link" data-bs-dismiss="modal">Close</button>
+              <button type="button" mat-raised-button color="primary" style="margin-left: 10px"
+                      (click)="createOrder()" [disabled]="this.saveButtonDisable">Save
+                changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     </div>
@@ -50,19 +96,14 @@
 
 <style>
   #orders-section {
-    margin-left: 20px;
-    margin-top: 5px;
+    margin-left: 2%;
+    margin-top: 5%
   }
 
   .table-section {
-    width: 80%;
     background-color: white;
-    padding: 2% 2%;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
-    border-radius: 5px;
-  }
-
-  td, th {
-    font-size: small;
+    padding: 2%;
+    margin-right: 10%;
+    width: auto;
   }
 </style>

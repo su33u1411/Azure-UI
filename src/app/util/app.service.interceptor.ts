@@ -5,13 +5,18 @@ import {AppService} from '../service/app.service';
 import {catchError, map} from 'rxjs/operators';
 
 @Injectable()
-export class AppServiceInterceptor implements HttpInterceptor{
+export class AppServiceInterceptor implements HttpInterceptor {
 
   constructor(private appService: AppService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.appService.enableSpinner();
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${this.appService.getToken()}`
+      }
+    });
     return next.handle(req)
       .pipe(catchError((err) => {
         this.appService.disableSpinner();
@@ -24,5 +29,4 @@ export class AppServiceInterceptor implements HttpInterceptor{
         return evt;
       }));
   }
-
 }

@@ -8,10 +8,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  username: string;
 
   constructor(private appService: AppService, private router: Router) {
   }
+
+  username: string;
 
   ngOnInit(): void {
     const token = this.appService.getToken();
@@ -21,5 +22,4 @@ export class HomeComponent implements OnInit {
       this.router.navigateByUrl('/login');
     }
   }
-
 }

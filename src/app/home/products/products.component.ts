@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AppService, Product} from '../../service/app.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-products',
@@ -11,8 +12,14 @@ import {MatPaginator} from '@angular/material/paginator';
 export class ProductsComponent implements OnInit {
   displayedColumns: string[] = ['#', 'productName', 'productDesc'];
   Products = new MatTableDataSource<Product>();
+  product: Product = {
+    productId: '',
+    productDesc: '',
+    productName: ''
+  };
+  saveButtonDisable: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  showTable = true;
+  @ViewChild('closeButton') closeButton: MatButton;
 
   constructor(private appService: AppService) {
   }
@@ -22,6 +29,7 @@ export class ProductsComponent implements OnInit {
       this.Products = new MatTableDataSource<Product>(products);
       this.Products.paginator = this.paginator;
     });
+    this.saveButtonDisable = true;
   }
 
   applyFilter(event: Event) {
@@ -29,11 +37,24 @@ export class ProductsComponent implements OnInit {
     this.Products.filter = filterValue.trim().toLowerCase();
   }
 
-  toggleShowTable() {
-    if (this.showTable) {
-      this.showTable = false;
+  createProduct() {
+    this.appService.createProduct(this.product.productName, this.product.productDesc).subscribe(response => {
+      if (response.productId) {
+        this.product.productName = '';
+        this.product.productDesc = '';
+        this.closeButton._elementRef.nativeElement.click();
+        this.ngOnInit();
+      } else {
+
+      }
+    });
+  }
+
+  enableSaveProduct() {
+    if (this.product.productName && this.product.productDesc) {
+      this.saveButtonDisable = false;
     } else {
-      this.showTable = true;
+      this.saveButtonDisable = true;
     }
   }
 }

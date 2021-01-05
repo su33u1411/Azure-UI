@@ -1,6 +1,6 @@
 <div id="products-section">
-  <p style="font-size: 1.5rem">Your Orders
-    <span style="font-size: 0.9rem;display: block;color: slategray;margin-top: 10px">List of all your orders are displayed in the below table</span>
+  <p style="font-size: 1.5rem">Your Products
+    <span style="font-size: 0.9rem;display: block;color: slategray;margin-top: 10px">List of all your products are displayed in the below table</span>
   </p>
   <div class="table-section">
     <div class="table-responsive">
@@ -8,20 +8,24 @@
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
-      <button mat-raised-button color="primary" style="float: right" data-bs-toggle="modal" data-bs-target="#addProductModel"><i class="fas fa-plus-circle"></i> Add Product</button>
+      <button mat-raised-button color="primary" style="float: right"
+              data-bs-toggle="modal"
+              data-bs-target="#addProductModel">
+        <i class="fas fa-plus-circle"></i> Add Product
+      </button>
 
       <!--TABLE-->
       <mat-table [dataSource]="this.Products" class="mat-elevation-z8">
         <ng-container matColumnDef="#">
-          <mat-header-cell *matHeaderCellDef > No. </mat-header-cell>
-          <mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+          <mat-cell *matCellDef="let element;let i = index;"> {{i + 1}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="productName">
-          <mat-header-cell *matHeaderCellDef > Product Name </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Product Name</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.productName}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="productDesc">
-          <mat-header-cell *matHeaderCellDef > Product Description </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Product Description</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.productDesc}} </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -37,27 +41,22 @@
               <h2 class="modal-title" id="exampleModalLabel">Add Product</h2>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="display: flex;flex-direction: column">
-              <mat-form-field style="width: 50%">
-                <mat-label>Favorite food</mat-label>
-                <input matInput placeholder="Ex. Pizza">
+            <div class="modal-body" style="display: flex;flex-direction: row;justify-content: start">
+              <mat-form-field style="margin-right: 10%">
+                <mat-label>Product Name</mat-label>
+                <input matInput [(ngModel)]="this.product.productName" (ngModelChange)="this.enableSaveProduct()">
               </mat-form-field>
-              <mat-form-field style="width: 50%">
-                <mat-label>Favorite food</mat-label>
-                <input matInput placeholder="Ex. Pizza">
-              </mat-form-field>
-              <mat-form-field style="width: 50%">
-                <mat-label>Favorite food</mat-label>
-                <input matInput placeholder="Ex. Pizza">
-              </mat-form-field>
-              <mat-form-field style="width: 50%">
-                <mat-label>Favorite food</mat-label>
-                <input matInput placeholder="Ex. Pizza">
+              <mat-form-field>
+                <mat-label>Product Description</mat-label>
+                <input matInput [(ngModel)]="this.product.productDesc" (ngModelChange)="this.enableSaveProduct()">
               </mat-form-field>
             </div>
             <div class="modal-footer">
-              <button type="button" mat-raised-button color="link" data-bs-dismiss="modal">Close</button>
-              <button type="button" mat-raised-button color="primary" style="margin-left: 10px">Save changes</button>
+              <button #closeButton type="button" mat-raised-button color="link" data-bs-dismiss="modal">Close</button>
+              <button type="button" mat-raised-button color="primary" style="margin-left: 10px"
+                      (click)="createProduct()" [disabled]="this.saveButtonDisable">Save
+                changes
+              </button>
             </div>
           </div>
         </div>
@@ -69,17 +68,14 @@
 
 <style>
   #products-section {
-    margin-left: 20px;
-  }
-  .table-section {
-    background-color: white;
-    padding: 1%;
-    border-radius: 5px;
-    margin-right: 10%;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+    margin-left: 2%;
+    margin-top: 5%
   }
 
-  td, th {
-    font-size: small;
+  .table-section {
+    background-color: white;
+    padding: 2%;
+    margin-right: 10%;
+    width: auto;
   }
 </style>
