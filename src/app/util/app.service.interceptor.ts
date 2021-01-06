@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {AppService} from '../service/app.service';
 import {catchError, map} from 'rxjs/operators';
+import {Constants} from './constants';
 
 @Injectable()
 export class AppServiceInterceptor implements HttpInterceptor {
@@ -12,11 +13,13 @@ export class AppServiceInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.appService.enableSpinner();
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.appService.getToken()}`
-      }
-    });
+    if (req.url.includes(Constants.AUTHENTICATE_ENDPOINT) === false){
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.appService.getToken()}`
+        }
+      });
+    }
     return next.handle(req)
       .pipe(catchError((err) => {
         this.appService.disableSpinner();

@@ -21,6 +21,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,20 +33,21 @@ import {MatNativeDateModule} from '@angular/material/core';
     OrdersComponent,
     SummaryComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule
+    ],
   providers: [AuthenticationHandler, AppService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AppServiceInterceptor,

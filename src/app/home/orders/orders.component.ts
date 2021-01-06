@@ -11,8 +11,9 @@ import * as _moment from 'moment';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  displayedColumns: string[] = ['orderId', 'productName', 'orderCharge', 'orderType', 'orderPoc'];
+  displayedColumns: string[] = ['orderId', 'productName', 'orderCharge', 'orderUnits', 'orderType', 'orderPoc', 'orderTs'];
   Orders = new MatTableDataSource<Order>();
+  productsList = [];
   order: Order = {
     orderPoc: '',
     orderType: '',
@@ -32,6 +33,7 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.productsList = this.appService.products;
     this.appService.getOrders().subscribe(orders => {
       this.Orders = new MatTableDataSource<Order>(orders);
       this.Orders.paginator = this.paginator;
@@ -57,12 +59,13 @@ export class OrdersComponent implements OnInit {
   }
 
   createOrder() {
+    this.order.orderTs = _moment(this.order.orderTs ).format('YYYY-MM-DDTHH:mm') + ':00.0+03:00';
     this.appService.createOrder(
       this.order.productName,
       this.order.orderCharge,
       this.order.orderQuantity,
       this.order.quantityUnit,
-      _moment(new Date()).format('YYYY-MM-DDTHH:mm') + ':00.0+03:00',
+      this.order.orderTs,
       this.order.orderType,
       this.order.orderPoc).subscribe(response => {
       if (response.orderId) {
@@ -79,5 +82,13 @@ export class OrdersComponent implements OnInit {
 
       }
     });
+  }
+
+  convertDate(orderTs: string) {
+    return _moment(orderTs).format('YYYY-MM-DD');
+  }
+
+  setOrderDate(value) {
+    this.order.orderTs = value;
   }
 }

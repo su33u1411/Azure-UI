@@ -29,6 +29,7 @@ export interface Order {
 @Injectable()
 export class AppService {
   isSpinnerEnable = new Subject<boolean>();
+  products = [];
 
   constructor(private http: HttpClient) {
   }
@@ -99,12 +100,11 @@ export class AppService {
     sessionStorage.removeItem(Constants.AUTH_USER_SESSION_TOKEN);
   }
 
-  enableSpinner() {
+  public enableSpinner() {
     this.isSpinnerEnable.next(true);
   }
 
-  disableSpinner() {
+  public disableSpinner() {
     this.isSpinnerEnable.next(false);
   }
-
 }

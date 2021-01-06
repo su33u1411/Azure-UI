@@ -39,7 +39,7 @@
   border-radius: inherit;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 #login-form-section {

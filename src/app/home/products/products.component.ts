@@ -26,6 +26,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.getProducts().subscribe(products => {
+      this.appService.products = products;
       this.Products = new MatTableDataSource<Product>(products);
       this.Products.paginator = this.paginator;
     });

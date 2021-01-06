@@ -8,14 +8,14 @@
         <div class="mb-3">
           <img src="../../assets/LoginPerson.png" id="header-image">
         </div>
-        <div class="mb-3">
+        <div class="mb-5">
           <p class="text-center" style="font-size: large;font-weight: 500">Welcome Back!</p>
         </div>
         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isLoginError">
           <strong>Invalid username or password!</strong>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 mt-2">
           <label for="username" class="form-label">Username</label>
           <input type="text" class="form-control" id="username" placeholder="Please type your username" [(ngModel)]="this.username">
         </div>
@@ -26,7 +26,7 @@
         <div class="d-grid gap-2 mb-2">
           <button type="button" class="btn btn-primary" (click)="validateUser()">Login</button>
         </div>
-        <div class="d-grid gap-2 mb-2">
+        <div class="d-grid gap-2 mb-2" *ngIf="false">
           <button type="button" class="btn btn-light" (click)="toggleForgotPassword()">Forgot Password?
           </button>
         </div>

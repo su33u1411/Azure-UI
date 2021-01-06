@@ -11,32 +11,43 @@
       <button mat-raised-button color="primary" style="float: right"
               data-bs-toggle="modal"
               data-bs-target="#addOrderModel">
-        <i class="fas fa-plus-circle"></i> Add Orders</button>
+        <i class="fas fa-plus-circle"></i> Add Orders
+      </button>
       <mat-table [dataSource]="this.Orders" class="mat-elevation-z8">
 
         <ng-container matColumnDef="orderId">
-          <mat-header-cell *matHeaderCellDef >Order ID</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Order ID</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.orderId}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="productName">
-          <mat-header-cell *matHeaderCellDef > Product Name </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Product Name</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.productName}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="orderCharge">
-          <mat-header-cell *matHeaderCellDef > Charge </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Charge</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.orderCharge}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="orderUnits">
+          <mat-header-cell *matHeaderCellDef> Units</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.orderQuantity}} {{element.quantityUnit}}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="orderType">
-          <mat-header-cell *matHeaderCellDef > Type </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.orderType}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="orderPoc">
-          <mat-header-cell *matHeaderCellDef > POC </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> POC</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.orderPoc}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="orderTs">
+          <mat-header-cell *matHeaderCellDef> Order Date <br>(YYY-MM-DD)</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{convertDate(element.orderTs)}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -49,33 +60,57 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h2 class="modal-title" id="exampleModalLabel">Add Product</h2>
+              <h2 class="modal-title" id="exampleModalLabel">Add Order</h2>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" style="display: flex;flex-direction: column">
               <mat-form-field style="width: 50%">
                 <mat-label>Product Name</mat-label>
-                <input matInput [(ngModel)]="this.order.productName" (ngModelChange)="this.enableSaveOrder()">
+                <mat-select required placeholder="Product Name" name="productName"
+                        [(ngModel)]="this.order.productName" (ngModelChange)="this.enableSaveOrder()">
+                  <mat-option *ngFor="let product of this.productsList" [value]="product.productName">
+                    {{product.productName}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
               <mat-form-field style="width: 50%">
                 <mat-label>Type</mat-label>
-                <input matInput [(ngModel)]="this.order.orderType" (ngModelChange)="this.enableSaveOrder()">
+                <select matNativeControl required placeholder="Order Type" name="orderType"
+                        [(ngModel)]="this.order.orderType" (ngModelChange)="this.enableSaveOrder()">
+                  <option value="Debit">Debit</option>
+                  <option value="Credit">Credit</option>
+                </select>
               </mat-form-field>
               <mat-form-field style="width: 50%">
                 <mat-label>Charge Amount</mat-label>
-                <input matInput [(ngModel)]="this.order.orderCharge" (ngModelChange)="this.enableSaveOrder()" type="number">
+                <input matInput required [(ngModel)]="this.order.orderCharge" (ngModelChange)="this.enableSaveOrder()"
+                       type="number">
               </mat-form-field>
               <mat-form-field style="width: 50%">
                 <mat-label>Quantity</mat-label>
-                <input matInput [(ngModel)]="this.order.orderQuantity" (ngModelChange)="this.enableSaveOrder()" type="number">
+                <input matInput required [(ngModel)]="this.order.orderQuantity" (ngModelChange)="this.enableSaveOrder()"
+                       type="number">
               </mat-form-field>
               <mat-form-field style="width: 50%">
                 <mat-label>Units</mat-label>
-                <input matInput [(ngModel)]="this.order.quantityUnit" (ngModelChange)="this.enableSaveOrder()">
+                <select matNativeControl required [(ngModel)]="this.order.quantityUnit"
+                        (ngModelChange)="this.enableSaveOrder()">
+                  <option value="KG">KG</option>
+                  <option value="G">G</option>
+                  <option value="T">T</option>
+                  <option value="Labor">Labor</option>
+                </select>
               </mat-form-field>
               <mat-form-field style="width: 50%">
                 <mat-label>Point of Contact</mat-label>
-                <input matInput [(ngModel)]="this.order.orderPoc" (ngModelChange)="this.enableSaveOrder()">
+                <input matInput required [(ngModel)]="this.order.orderPoc" (ngModelChange)="this.enableSaveOrder()">
+              </mat-form-field>
+              <mat-form-field style="width: 50%">
+                <mat-label>Order date</mat-label>
+                <input matInput [matDatepicker]="orderDatePicker" disabled
+                       (dateChange)="setOrderDate($event.target.value)">
+                <mat-datepicker-toggle matSuffix [for]="orderDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #orderDatePicker disabled="false"></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="modal-footer">
@@ -105,5 +140,8 @@
     padding: 2%;
     margin-right: 10%;
     width: auto;
+  }
+  ::ng-deep .cdk-overlay-container{
+    z-index: 1200 !important;
   }
 </style>
